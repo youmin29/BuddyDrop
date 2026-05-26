@@ -1,14 +1,23 @@
 import { supabase, Release } from "./supabase";
 
+function sortBySemver(releases: Release[]): Release[] {
+  return [...releases].sort((a, b) => {
+    const [aMaj, aMin, aPatch] = a.version.split(".").map(Number);
+    const [bMaj, bMin, bPatch] = b.version.split(".").map(Number);
+    if (bMaj !== aMaj) return bMaj - aMaj;
+    if (bMin !== aMin) return bMin - aMin;
+    return bPatch - aPatch;
+  });
+}
+
 export async function getReleases(): Promise<Release[]> {
   const { data, error } = await supabase
     .from("releases")
     .select("*")
-    .eq("published", true)
-    .order("date", { ascending: false });
+    .eq("published", true);
 
   if (error) throw new Error(error.message);
-  return data ?? [];
+  return sortBySemver(data ?? []);
 }
 
 export async function getReleaseWithMessages(version: string): Promise<Release | null> {

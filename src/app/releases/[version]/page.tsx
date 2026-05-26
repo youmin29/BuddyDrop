@@ -63,6 +63,21 @@ export default async function ReleasePage({ params }: Props) {
             </div>
             <p className="text-xs text-green-500">v{release.version} · {formatDate(release.date)}</p>
           </div>
+          {release.download_url && (
+            <a
+              href={release.download_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500 hover:bg-green-600 active:bg-green-700 transition-colors text-white text-xs font-semibold shadow-sm"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              다운로드
+            </a>
+          )}
         </div>
       </div>
 

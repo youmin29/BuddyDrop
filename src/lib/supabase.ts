@@ -19,6 +19,7 @@ export interface Release {
   summary: string;
   tag: ReleaseTag;
   published: boolean;
+  download_url: string | null;
   release_messages?: ReleaseMessage[];
 }
 
